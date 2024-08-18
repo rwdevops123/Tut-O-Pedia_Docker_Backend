@@ -5,8 +5,8 @@ pipeline {
         maven '3.9.8'
     }
     parameters {
-        booleanParam(name: 'dockerBuild', defaultValue: false, description: 'Build Docker Image?')
-        booleanParam(name: 'dockerhubPush', defaultValue: false, description: 'Push Image to DockerHub?')
+        booleanParam(name: 'dockerBuild', defaultValue: true, description: 'Build Docker Image?')
+        booleanParam(name: 'dockerhubPush', defaultValue: true, description: 'Push Image to DockerHub?')
         booleanParam(name: 'deploy', defaultValue: true, description: 'Deploy?')
     }
 
