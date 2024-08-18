@@ -1,3 +1,4 @@
+@Library("jenkins-shared-library") _
 pipeline {
     agent any
     tools {
@@ -6,7 +7,7 @@ pipeline {
     parameters {
         booleanParam(name: 'dockerBuild', defaultValue: true, description: 'Build Docker Image?')
         booleanParam(name: 'dockerhubPush', defaultValue: true, description: 'Push Image to DockerHub?')
-        booleanParam(name: 'deploy', defaultValue: false, description: 'Deploy?')
+        booleanParam(name: 'deploy', defaultValue: true, description: 'Deploy?')
     }
 
     environment {
@@ -67,6 +68,12 @@ pipeline {
             steps {
                 build 'Tut-O-Pedia_Docker_Deploy'
             }
+        }
+    }
+
+    post {
+        always {
+            mailTo(to: "rwdevops123@gmail.com", attachLog: true)
         }
     }
 }
