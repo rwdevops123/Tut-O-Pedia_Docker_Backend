@@ -23,7 +23,8 @@ public class FilePublishService {
 		System.out.println("Publish File Service called");
 		File file = fileStorageService.getFileByTutorialId(tutorial.getId());
 		
-		TutorialFileData fileData = new TutorialFileData(tutorial.getFilename(), file.getTfile());
+		if (file != null && file.getTfile() != null) {
+			TutorialFileData fileData = new TutorialFileData(tutorial.getFilename(), file.getTfile());
 		
 /*		emailService.setConnectionParams("smtp.gmail.com", 587, "rudi.welter@gmail.com", "oqkb gkrl jifw gzmf");
 		emailService.sendEmail(
@@ -31,6 +32,7 @@ public class FilePublishService {
 				"rudi.welter@gmail.com", 
 				tutorial.getTitle(),
 				fileData); */
+		}
 	}
 
 	public void publishFiles(List<Tutorial> tutorials) throws Exception {
@@ -38,10 +40,12 @@ public class FilePublishService {
 		
 		for (Tutorial tutorial : tutorials) {
 			File file = fileStorageService.getFileByTutorialId(tutorial.getId());
-			
-			filesToSend.put(
-					tutorial.getTitle(), 
-					new TutorialFileData(tutorial.getFilename(), file.getTfile()));
+
+			if (file != null && file.getTfile() != null) {
+				filesToSend.put(
+						tutorial.getTitle(), 
+						new TutorialFileData(tutorial.getFilename(), file.getTfile()));
+			}
 		}
 		
 /*		emailService.setConnectionParams("smtp.gmail.com", 587, "rudi.welter@gmail.com", "oqkb gkrl jifw gzmf");
